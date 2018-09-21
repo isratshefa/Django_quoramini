@@ -1,0 +1,35 @@
+
+
+<div class="col-sm-9" style="background-color:white;">
+    <h4>{{ question.asked_by.username }}</h4>
+    <h1>{{ question.question_title }}</h1>
+    <h5><span class="glyphicon glyphicon-time"></span> {{ question.asked_date }}</h5>
+    <a href="{% url 'home:create_answer' question.id %}" class="btn btn-info" role="button">Answer This Question</a>
+    {% if question.asked_by == user %}
+    <a href="{% url 'home:delete_question' question.id %}" class="btn btn-danger" role="button">Delete Question</a>
+    <a href="{% url 'home:update_question' question.id %}" class="btn btn-danger" role="button">Update Question</a>
+    {% endif %}
+    <hr>
+    {% if  answer_list %}
+        {% for an_answer in answer_list %}
+            <div class="col-sm-9">
+                <br>
+            </div>
+            <br>
+            <h5><span class="glyphicon glyphicon-time"></span> Answered by {{ an_answer.answered_by }} on {{ an_answer.answered_date }}</h5>
+            <p>{{ an_answer.answer }}</p>
+            <a href="#" class="btn btn-success" role="button">Up vote | {{ an_answer.upvotes }}</a>
+            <a href="#" class="btn btn-danger" role="button">Down Vote | {{ an_answer.downvotes }}</a>
+            {% if an_answer.answered_by == user %}
+            <a href="{% url 'home:delete_answer' question.id an_answer.id %}" class="btn btn-danger" role="button">Delete Answer</a>
+            {% endif %}
+            <br><br>
+        {% endfor %}
+
+    {% else %}
+        <div class="col-sm-9" style="background-color:white;">
+            <h2>There Are No Answers for this Question</h2>
+        </div>
+    {% endif %}
+
+</div>

@@ -1,0 +1,44 @@
+{% if question_list %}
+    {% for a_question in question_list %}
+        <div class="col-sm-9" style="background-color:white;">
+            <h4>{{ a_question.asked_by.username }}</h4>
+            <h1>{{ a_question.question_title }}</h1>
+            <h5><span class="glyphicon glyphicon-time"></span> {{ a_question.asked_date }}</h5>
+            {% if a_question.asked_by == user %}
+            <a href="{% url 'home:delete_question' a_question.id %}" class="btn btn-danger" role="button">Delete Question</a>
+            <a href="{% url 'home:update_question' a_question.id %}" class="btn btn-danger" role="button">Update Question</a>
+            {% endif %}
+            <hr>
+            {% if  a_question.get_best_answer %}
+            <h5><span class="glyphicon glyphicon-time"></span> Answered by {{ a_question.get_best_answer.answered_by }} on {{ a_question.get_best_answer.answered_date }}</h5>
+            <p>{{ a_question.get_best_answer.answer }}</p>
+            <a href="#" class="btn btn-success" role="button">Up vote | {{ a_question.get_best_answer.upvotes }}</a>
+            <a href="#" class="btn btn-danger" role="button">Down Vote | {{ a_question.get_best_answer.downvotes }}</a>
+            <br><br>
+            <a href="{% url 'home:all_answer' a_question.id %}" class="btn btn-info" role="button">All Answers</a>
+            <a href="{% url 'home:create_answer' a_question.id %}" class="btn btn-info" role="button">Answer This Question</a>
+            {% if a_question.get_best_answer.answered_by == user %}
+                <a href="{% url 'home:delete_answer' a_question.id a_question.get_best_answer.id %}" class="btn btn-danger" role="button">Delete Answer</a>
+            {% endif %}
+
+            <br><br>
+
+            {% else %}
+                <div class="col-sm-9" style="background-color:white;">
+                    <h2>There Are No Answers for this Question</h2>
+                    <a href="{% url 'home:create_answer' a_question.id %}" class="btn btn-info" role="button">Answer This Question</a>
+                </div>
+            {% endif %}
+
+        </div>
+        <div class="col-sm-9">
+            <br>
+        </div>
+    {% endfor %}
+
+{% else %}
+    <div class="col-sm-9" style="background-color:white;">
+        <h2>There Are No Questions</h2>
+    </div>
+
+{% endif %}

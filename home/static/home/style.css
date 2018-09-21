@@ -1,0 +1,12 @@
+body {
+    background: white url("images/background.png");
+
+}
+
+.row.content {height: 1500px}
+
+.sidenav {
+    background-color: #f1f1f1;
+    height: 100%;
+}
+

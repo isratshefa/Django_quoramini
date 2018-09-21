@@ -1,0 +1,30 @@
+{% extends 'home/base.html' %}
+
+{% block home_active %}active{% endblock %}
+
+{% block username %} {{ user.username }} {% endblock %}
+
+{% block body %}
+    <div class="container-fluid" style="padding-top: 60px;">
+        <div class="row content">
+            <div class="col-sm-2 sidenav" style="background-color:#f1f1f1; height: 100%;">
+                <h4>Feeds</h4>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="#">Top Stories</a></li>
+                    <li><a href="#">New Questions</a></li>
+                    <li><a href="#">Bookmarked Answer</a></li>
+                    <li><a href="#">Links</a></li>
+                </ul><br>
+            </div>
+            <div class="col-sm-9" style="background-color:white;">
+                <h3>{{ user.username }}</h3>
+                <a href="{% url 'home:create_question' %}">
+                    <h3>What is your question</h3>
+                </a>
+            </div>
+
+            {% include 'home/post_template.html' %}
+        </div>
+    </div>
+
+{% endblock %}
